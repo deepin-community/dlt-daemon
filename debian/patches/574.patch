@@ -1,0 +1,55 @@
+Forwarded: yes
+From 727b739fd165cc9031b2d6b1c5d7638b52608102 Mon Sep 17 00:00:00 2001
+From: Gianfranco Costamagna <costamagnagianfranco@yahoo.it>
+Date: Thu, 23 Nov 2023 10:57:39 +0100
+Subject: [PATCH] systemd: Don't install services in basic.target, but use
+ multi-user.target instead.
+
+The specified systemd service file declares an unusual WantedBy=
+relationship.
+
+Most services that want to be started automatically at boot should use
+WantedBy=multi-user.target or WantedBy=graphical.target. Services that
+want to be started in rescue or single-user mode should instead use
+WantedBy=sysinit.target
+
+Please refer to https://wiki.debian.org/Teams/pkg-systemd/rcSMigration for
+details.
+---
+ systemd/dlt-dbus.service.cmake   | 2 +-
+ systemd/dlt-system.service.cmake | 2 +-
+ systemd/dlt.service.cmake        | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/systemd/dlt-dbus.service.cmake b/systemd/dlt-dbus.service.cmake
+index ee41ec81..295107d4 100644
+--- a/systemd/dlt-dbus.service.cmake
++++ b/systemd/dlt-dbus.service.cmake
+@@ -27,5 +27,5 @@ NotifyAccess=main
+ LimitCORE=infinity
+ 
+ [Install]
+-WantedBy=basic.target
++WantedBy=multi-user.target
+ 
+diff --git a/systemd/dlt-system.service.cmake b/systemd/dlt-system.service.cmake
+index ac170990..83226cf1 100755
+--- a/systemd/dlt-system.service.cmake
++++ b/systemd/dlt-system.service.cmake
+@@ -27,5 +27,5 @@ NotifyAccess=main
+ LimitCORE=infinity
+ 
+ [Install]
+-WantedBy=basic.target
++WantedBy=multi-user.target
+ 
+diff --git a/systemd/dlt.service.cmake b/systemd/dlt.service.cmake
+index a19fa7e6..b835c59b 100755
+--- a/systemd/dlt.service.cmake
++++ b/systemd/dlt.service.cmake
+@@ -26,4 +26,4 @@ NotifyAccess=main
+ LimitCORE=infinity
+ 
+ [Install]
+-WantedBy=basic.target
++WantedBy=multi-user.target

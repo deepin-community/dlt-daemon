@@ -1,0 +1,7 @@
+doc/*.txt /usr/share/doc/libdlt-examples
+doc/images/* /usr/share/doc/libdlt-examples
+examples/* /usr/share/doc/libdlt-examples
+src/examples/* /usr/share/doc/libdlt-examples
+usr/bin/dlt-example* /usr/lib/libdlt-examples
+usr/bin/dlt-test* /usr/lib/libdlt-examples
+usr/lib/systemd/system/dlt-example-user.service /usr/share/doc/libdlt-examples/examples

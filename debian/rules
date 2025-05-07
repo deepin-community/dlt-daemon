@@ -1,4 +1,28 @@
 #!/usr/bin/make -f
+# See debhelper(7) (uncomment to enable)
+# output every command that modifies files on the build system.
+#export DH_VERBOSE = 1
 
 %:
 	dh $@
+
+
+override_dh_auto_configure:
+	# keep disabled for now? -DDLT_IPC=UNIX_SOCKET -DWITH_SYSTEMD_SOCKET_ACTIVATION=ON
+	dh_auto_configure -- \
+		-DWITH_SYSTEMD=ON -DWITH_SYSTEMD_JOURNAL=ON -DWITH_SYSTEMD_WATCHDOG=ON -DWITH_MAN=ON -DWITH_DLT_ADAPTOR=ON \
+		-DWITH_DLT_DBUS=ON -DWITH_DLT_SYSTEM=ON -DWITH_DLT_KPI=ON -DWITH_DLT_FILETRANSFER=ON -DWITH_UDP_CONNECTION=ON \
+		-DWITH_DLT_UNIT_TESTS=ON -DWITH_EXTENDED_FILTERING=ON -DWITH_DLT_LOGSTORAGE_GZIP=ON -DCMAKE_LIBRARY_PATH=$(DEB_HOST_MULTIARCH) \
+		-DDLT_USER="_dlt"
+
+override_dh_auto_test:
+	dh_auto_test --no-parallel || true
+
+execute_after_dh_auto_install:
+	# they are used only for testing, and they mention /usr/local/ in source code, so they can't work anyway
+	rm debian/tmp/usr/share/dlt-filetransfer/dlt-test-filetransfer-file debian/tmp/usr/share/dlt-filetransfer/dlt-test-filetransfer-image.png
+
+override_dh_installinit:
+	dh_installinit -pdlt-tools --name=dlt-system -n
+	dh_installinit -pdlt-tools --name=dlt-dbus -n
+	dh_installinit -n

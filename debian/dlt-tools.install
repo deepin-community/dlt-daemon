@@ -1,0 +1,24 @@
+etc/dlt-dbus.conf
+etc/dlt-kpi.conf
+etc/dlt-system.conf
+usr/bin/dlt-*-ctrl
+usr/bin/dlt-adaptor*
+usr/bin/dlt-control
+usr/bin/dlt-convert
+usr/bin/dlt-dbus
+usr/bin/dlt-kpi
+usr/bin/dlt-receive
+usr/bin/dlt-sortbytimestamp
+usr/bin/dlt-system
+usr/lib/systemd/system/dlt-dbus.service
+usr/lib/systemd/system/dlt-system.service
+usr/lib/systemd/system/dlt-adaptor-udp.service /usr/share/doc/dlt-tools/examples
+usr/lib/systemd/system/dlt-receive.service /usr/share/doc/dlt-tools/examples
+usr/share/man/man1/dlt-*-ctrl*
+usr/share/man/man1/dlt-adaptor*
+usr/share/man/man1/dlt-control*
+usr/share/man/man1/dlt-convert*
+usr/share/man/man1/dlt-receive*
+usr/share/man/man1/dlt-sortbytimestamp*
+usr/share/man/man1/dlt-system*
+usr/share/man/man5/dlt-system*

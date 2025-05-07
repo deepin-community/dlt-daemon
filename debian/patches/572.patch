@@ -1,0 +1,42 @@
+Forwarded: yes
+From acdb3e4144bcdff31cebe24ad127c12c679c540a Mon Sep 17 00:00:00 2001
+From: Gianfranco Costamagna <costamagnagianfranco@yahoo.it>
+Date: Tue, 21 Nov 2023 15:59:23 +0100
+Subject: [PATCH] Update CMakeLists.txt
+
+Fix warning such as:
+CMake Warning (dev) in systemd/CMakeLists.txt:
+  A logical block opening on the line
+
+    /dlt-daemon-2.18.10/systemd/CMakeLists.txt:56 (if)
+
+  closes on the line
+
+    /dlt-daemon-2.18.10/systemd/CMakeLists.txt:64 (endif)
+
+  with mis-matching arguments.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+---
+ systemd/CMakeLists.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/systemd/CMakeLists.txt b/systemd/CMakeLists.txt
+index a44e7bc7..16cbe86b 100644
+--- a/systemd/CMakeLists.txt
++++ b/systemd/CMakeLists.txt
+@@ -61,13 +61,13 @@ if(WITH_SYSTEMD)
+         message( STATUS "Configured systemd unit file:dlt-adaptor-udp.service" )
+         message(STATUS "DLT adaptor udp configuration: APPID=${DLT_ADAPTOR_UDP_APPID} CTID=${DLT_ADAPTOR_UDP_CTID} PORT=${DLT_ADAPTOR_UDP_PORT}" )
+         install(FILES ${PROJECT_BINARY_DIR}/systemd/dlt-adaptor-udp.service DESTINATION ${SYSTEMD_CONFIGURATIONS_FILES_DIR} )
+-    endif(WITH_DLT_ADAPTOR_UDP)
++    endif(WITH_DLT_ADAPTOR_UDP OR WITH_DLT_ADAPTOR)
+ 
+     if (WITH_SYSTEMD_SOCKET_ACTIVATION)
+         configure_file(${PROJECT_SOURCE_DIR}/systemd/dlt.socket.cmake ${PROJECT_BINARY_DIR}/systemd/dlt.socket)
+         message( STATUS "Configured systemd socket file:dlt.socket" )
+         install(FILES ${PROJECT_BINARY_DIR}/systemd/dlt.socket DESTINATION ${SYSTEMD_CONFIGURATIONS_FILES_DIR} )
+-    endif()
++    endif(WITH_SYSTEMD_SOCKET_ACTIVATION)
+ 
+     message(STATUS "Unit files will be installed to ${SYSTEMD_CONFIGURATIONS_FILES_DIR} after make install" )
+ 

@@ -1,0 +1,7 @@
+etc/dlt.conf
+etc/dlt_gateway.conf
+usr/bin/dlt-daemon
+usr/share/man/man1/dlt-daemon.*
+usr/share/man/man5/dlt.conf.*
+usr/share/man/man5/dlt_gateway.conf.*
+usr/lib/systemd/system/dlt.service

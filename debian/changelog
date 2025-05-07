@@ -1,5 +1,256 @@
-template-repository (1.0-1) unstable; urgency=medium
+dlt-daemon (2.18.10-10) unstable; urgency=medium
 
-  * Initial release
+  * Switch dependency from systemd-dev to systemd-dev (Closes: #1060592)
+  * Also depend on pkgconf, used by cmake
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Fri, 19 Jan 2024 10:16:52 +0100
+
+dlt-daemon (2.18.10-9) unstable; urgency=medium
+
+  * Ignore test results, they write on serial console and sometimes they fail
+    due to this
+  * Fix copyright file, gtest is not part of source code anymore
+  * Fix adduser to pass also home directory
+  * Fix systemd targets, basic should be instead multi-user
+  * Mark patches as forwarded.
+  * Add another upstream proposed patch to silence a cmake warning
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Thu, 23 Nov 2023 10:50:05 +0100
+
+dlt-daemon (2.18.10-8) unstable; urgency=medium
+
+  * Make sure dlt runs as _dlt user, not as nobody (Closes: #1055580) 
+  * Start using upstream service files.
+  * Enable systemd watchdog
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Tue, 21 Nov 2023 13:18:22 +0100
+
+dlt-daemon (2.18.10-7) unstable; urgency=medium
+
+  * Add back systemd B-D FTBFS otherwise.
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Wed, 08 Nov 2023 08:35:12 +0100
+
+dlt-daemon (2.18.10-6) unstable; urgency=medium
+
+  [ Guillem Jover <gjover@sipwise.com> ]
+  * run wrap-and-sort -sat
+  * don't run tests in parallel (Closes: #1054999)
+  * add psmisc to B-D for killall command
+  * remove unused systemd B-D
+  * tweak rules file to use execute_dh_auto_install target. 
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Tue, 07 Nov 2023 23:17:42 +0100
+
+dlt-daemon (2.18.10-5) unstable; urgency=medium
+
+  * Take a better approach from upstream.
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Wed, 23 Aug 2023 18:30:57 +0200
+
+dlt-daemon (2.18.10-4) unstable; urgency=medium
+
+  * Enable tests again with a proposed upstream patch
+  * Simplify rules file
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Mon, 21 Aug 2023 08:32:46 +0200
+
+dlt-daemon (2.18.10-3) unstable; urgency=medium
+
+  * Fixup test disable syntax.
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Fri, 18 Aug 2023 16:59:38 +0200
+
+dlt-daemon (2.18.10-2) unstable; urgency=medium
+
+  * Disable tests for now, until upstream issue: #522 is sorted out
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Fri, 18 Aug 2023 09:02:49 +0200
+
+dlt-daemon (2.18.10-1) unstable; urgency=medium
+
+  * New upstream release.
+    - drop all patches, now upstream
+  * Enable gzip compression for logstorage
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Thu, 17 Aug 2023 08:23:46 +0200
+
+dlt-daemon (2.18.9-2) unstable; urgency=medium
+
+  * debian/patches/504.patch:
+    - cherry-pick proposed upstream patch from Adrian Bunk, to fix build
+      failure with googletest 1.13.0 (Closes: #1041124)
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Sat, 15 Jul 2023 11:32:10 +0200
+
+dlt-daemon (2.18.9-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Fix watch file regex to take account of alpha releases
+  * Drop all patches, now fixed upstream
+  * Add two patches proposed upstream, 481.patch and 482.patch
+    to fix build failures with security build flags enabled and with different
+    cmake configurations
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Fri, 28 Apr 2023 11:26:31 +0200
+
+dlt-daemon (2.18.8-6) unstable; urgency=medium
+
+  * Switch from GENIVI to COVESA
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Tue, 10 Jan 2023 15:36:58 +0100
+
+dlt-daemon (2.18.8-5) unstable; urgency=medium
+
+  * debian/patches/433.patch
+    - Add upstream-proposed patch to fix latomic underlinkage on riscv64
+  * Upload to lunar with atomic fix on cmake
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Tue, 10 Jan 2023 11:40:57 +0100
+
+dlt-daemon (2.18.8-4) unstable; urgency=medium
+
+  * Enable tests during build
+  * Enable extended filtering feature.
+  * Refresh patch 398
+  * Add upstream patch to fix a test build failure
+  * Add R^3: no
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Tue, 10 Jan 2023 10:41:43 +0100
+
+dlt-daemon (2.18.8-3) unstable; urgency=medium
+
+  * Fix dh_installinit call with compat level 13
+  * Install some more tool and manpage, e.g. dlt-sortbytimestamp
+  * Also install cmake helper
+  * Install some missing manpages
+  * Override dh_install to avoid installing not needed files, avoiding
+    dh_missing failures with compat level 13
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Tue, 10 Jan 2023 07:20:45 +0100
+
+dlt-daemon (2.18.8-2) unstable; urgency=medium
+
+  * debian/patches/398.patch
+    - add upstream patch to fix a buffer overflow on 32 bit systems.
+  * Bump std-version to4.6.2
+  * Bump compat level to 13
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Mon, 09 Jan 2023 15:07:11 +0100
+
+dlt-daemon (2.18.8-1) unstable; urgency=low
+
+  * New upstream release
+  * Dropped an upstreamed patch
+
+ -- Aigars Mahinovs <aigarius@debian.org>  Mon, 14 Nov 2022 21:50:12 +0100
+
+dlt-daemon (2.18.6-2.1) unstable; urgency=high
+
+  * Non-maintainer upload.
+  * CVE-2022-31291: Double free in dlt_config_file_set_section().
+    (Closes: #1014534)
+
+ -- Adrian Bunk <bunk@debian.org>  Thu, 18 Aug 2022 19:39:48 +0300
+
+dlt-daemon (2.18.6-2) unstable; urgency=medium
+
+  * Enable and run unit tests during build step:
+    - b-d on libgtest-dev
+    - patch cmake to run the system gtest version without rebuilding it
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Tue, 06 Apr 2021 18:35:22 +0200
+
+dlt-daemon (2.18.6-1) unstable; urgency=medium
+
+  * Update to new release
+  * Drop all patches: upstream
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Sat, 09 Jan 2021 14:18:44 +0100
+
+dlt-daemon (2.18.5-0.4) unstable; urgency=medium
+
+  * Team upload (add myself to uploaders list since I maintained it on the
+    last 1.5 years and 6 uploads, Aigars please let me know if this is ok for
+    you)
+  * debian/patches/33fbad18c814e13bd7ba2053525d8959fee437d1.patch:
+  * debian/patches/ef7ca2706aa2e877c1be62d73554c6c79996d69a.patch:
+    - cherry-pick two upstream commits to fix the ABI with the python-dlt one
+      (unbreaking python-dlt migration and build)
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Wed, 02 Dec 2020 18:39:15 +0100
+
+dlt-daemon (2.18.5-0.3) unstable; urgency=high
+
+  * Non-maintainer upload
+  * debian/patches/275.patch:
+    - cherry-pick upstream fix for CVE-2020-29394
+      (Closes: #976228)
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Tue, 01 Dec 2020 21:57:59 +0100
+
+dlt-daemon (2.18.5-0.2) unstable; urgency=medium
+
+  * Non-maintainer upload
+  * Add backports of upstream PR #241 and #245 to properly fix
+    the gcc-10 build failure without regressions.
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Sat, 29 Aug 2020 08:56:20 +0200
+
+dlt-daemon (2.18.5-0.1) unstable; urgency=medium
+
+  * Non-maintainer upload
+  * New upstream release.
+  * Drop debian/patches/170.patch: upstream
+  * debian/patches/238.patch:
+    - upstream proposed patch to fix gcc-10 build failures (Closes: #957140)
+  * enable UDP_CONNECTION and DLT_FILETRANSFER
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Fri, 31 Jul 2020 14:09:08 +0200
+
+dlt-daemon (2.18.4-0.2) unstable; urgency=medium
+
+  [ Martyn Welch ]
+  * Non-maintainer upload
+  * Move systemd unit files into associated packages
+    Closes: #944253
+
+  [ Gianfranco Costamagna ]
+  * Replace dbus-glib with correct libdbus-1-dev (Closes: #955836)
+
+ -- Martyn Welch <martyn.welch@collabora.com>  Fri, 20 Mar 2020 16:37:12 +0000
+
+dlt-daemon (2.18.4-0.1) unstable; urgency=medium
+
+  * Non-maintainer upload
+  * New upstream release (Closes: #925670)
+  * debian/patches/170.patch: upstream proposed manpage fix
+  * Update std-version to 4.4.0, no changes required
+  * Add pandoc dependency, needed to build documentation
+  * Bump compat level to 12
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Thu, 19 Sep 2019 13:31:17 +0200
+
+dlt-daemon (2.18.0-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Aigars Mahinovs <aigarius@debian.org>  Sun, 03 Feb 2019 13:50:12 +0200
+
+dlt-daemon (2.17.0-3) unstable; urgency=medium
+
+  * Fix building with glibc 2.28 (Closes: #914666)
+
+ -- Aigars Mahinovs <aigarius@debian.org>  Sat, 22 Dec 2018 07:45:18 +0200
+
+dlt-daemon (2.17.0-2) unstable; urgency=low
+
+  * Fix FTBFS (Closes: #914356)
+
+ -- Aigars Mahinovs <aigarius@debian.org>  Fri, 23 Nov 2018 17:45:18 +0200
+
+dlt-daemon (2.17.0-1) unstable; urgency=low
+
+  * Initial release (Closes: #688586)
+
+ -- Aigars Mahinovs <aigarius@debian.org>  Mon, 23 Jul 2018 14:32:38 +0200
